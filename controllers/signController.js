@@ -44,7 +44,7 @@ const signupPost = [
         try {
             const hashedPassword = await bcrypt.hash(password, 10);
             await db.addUser(firstName, lastName, username, hashedPassword);
-            res.redirect("/");
+            res.redirect("/sign-up/secret");
         } catch (error) {
             console.error(error);
             next(error);
@@ -52,4 +52,4 @@ const signupPost = [
     }
 ];
 
-module.exports = { signupGet, signupPost }
+module.exports = { signupGet, signupPost};
