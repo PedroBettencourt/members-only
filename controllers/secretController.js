@@ -12,6 +12,11 @@ async function secretPost(req, res) {
         await db.upgradeUser(req.user.id);
     };
 
+    const adminPass = req.body.admin;
+    if (adminPass === process.env.ADMIN) {
+        await db.upgradeAdmin(req.user.id);
+    }
+
     res.redirect("/");
 };
 

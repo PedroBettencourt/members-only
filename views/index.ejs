@@ -20,6 +20,11 @@
             <% if (locals.user) { %>
                 <li>Date: <%= message.timestamp %></li>
                 <li>User: <%= message.username %></li>
+                <% if (locals.user.admin === true) { %>
+                    <form action="/delete/<%=message.id%>" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                <% } %>
             <% } %>
         </ul>
     <% }) %>

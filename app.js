@@ -27,4 +27,10 @@ app.use("/login", loginRouter);
 app.use("/secret", secretRouter);
 app.use("/create", createRouter);
 
+app.post("/delete/:id", async(req, res) => {
+    if (!req.user || !req.user.admin) return res.redirect("/"); 
+    await db.deleteMessage(req.params.id);
+    res.redirect("/");
+})
+
 app.listen(3002);
