@@ -6,8 +6,11 @@ function secretGet(req, res) {
 };
 
 async function secretPost(req, res) {
-    const password = req.body.password;
-    if (password === process.env.SECRET) await db.upgradeUser(id);
+    const secret = req.body.secret;
+    if (!req.user) return res.redirect("/login");
+    if (secret === process.env.SECRET) {
+        await db.upgradeUser(req.user.id);
+    };
 
     res.redirect("/");
 };

@@ -4,7 +4,6 @@ const db = require("../db/pool");
 
 
 async function loginGet(req, res) {
-    console.log(await db.query("SELECT * FROM users"));
     res.render("login");
 };
 

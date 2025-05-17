@@ -5,6 +5,8 @@ const passport = require('passport');
 const signRouter = require('./routes/signRouter');
 const loginRouter = require('./routes/loginRouter');
 const secretRouter = require('./routes/secretRouter');
+const createRouter = require("./routes/createRouter");
+const db = require('./db/queries');
 
 const app = express();
 app.set("views", path.join(__dirname, "views"));
@@ -15,15 +17,14 @@ const initPassport = require("./passport");
 initPassport(app);
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
-    if (req.user) console.log(req.user);
-    else console.log("nope")
-    res.render("index")
-
+app.get("/", async(req, res) => {
+    const messages = await db.getMessages();
+    res.render("index", { user: req.user, messages: messages });
 });
 
 app.use("/sign-up", signRouter);
 app.use("/login", loginRouter);
 app.use("/secret", secretRouter);
+app.use("/create", createRouter);
 
 app.listen(3002);

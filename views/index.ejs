@@ -7,5 +7,22 @@
 </head>
 <body>
     <h1>Homepage</h1>
+    <% if (locals.user) { %>
+        <a href="/create">Create a new message</a>
+    <% } else { %>
+        <a href="/login">Log-in</a>
+    <% } %>
+    <h2>Messages</h2>
+    <% locals.messages.forEach(message => { %>
+        <ul>
+            <li>Title: <%= message.title %></li>
+            <li>Text: <%= message.text %></li>
+            <% if (locals.user) { %>
+                <li>Date: <%= message.timestamp %></li>
+                <li>User: <%= message.username %></li>
+            <% } %>
+        </ul>
+    <% }) %>
+
 </body>
 </html>
